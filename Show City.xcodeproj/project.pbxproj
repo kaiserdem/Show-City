@@ -13,6 +13,7 @@
 		AD2CF66B2213288A0021771C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD2CF6692213288A0021771C /* Main.storyboard */; };
 		AD2CF66D2213288B0021771C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD2CF66C2213288B0021771C /* Assets.xcassets */; };
 		AD2CF6702213288B0021771C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD2CF66E2213288B0021771C /* LaunchScreen.storyboard */; };
+		AD2CF67C221355700021771C /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2CF67B221355700021771C /* DroppablePin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AD2CF66C2213288B0021771C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD2CF66F2213288B0021771C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD2CF6712213288B0021771C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD2CF67B221355700021771C /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		AD2CF678221328C90021771C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AD2CF67B221355700021771C /* DroppablePin.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD2CF6682213288A0021771C /* MapVC.swift in Sources */,
+				AD2CF67C221355700021771C /* DroppablePin.swift in Sources */,
 				AD2CF6662213288A0021771C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
