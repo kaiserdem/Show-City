@@ -63,21 +63,23 @@
                             <constraint firstAttribute="trailingMargin" secondItem="DLe-IH-ESV" secondAttribute="trailing" id="7Fz-hV-Yuq"/>
                             <constraint firstItem="XTR-aj-tZx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7S3-E3-FfF"/>
                             <constraint firstItem="XTR-aj-tZx" firstAttribute="top" secondItem="cTY-WC-bTN" secondAttribute="bottom" id="AMn-eM-3MM"/>
-                            <constraint firstItem="cTY-WC-bTN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Jok-uK-QRA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XTR-aj-tZx" secondAttribute="bottom" id="TeD-wb-RZG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DLe-IH-ESV" secondAttribute="bottom" constant="20" id="Ttl-Sk-e8n"/>
+                            <constraint firstItem="XTR-aj-tZx" firstAttribute="top" secondItem="DLe-IH-ESV" secondAttribute="bottom" constant="20" id="Uaq-Hj-h7V"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cTY-WC-bTN" secondAttribute="trailing" id="Wrt-ff-vge"/>
                             <constraint firstItem="cTY-WC-bTN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WyH-lL-7ie"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cTY-WC-bTN" secondAttribute="bottom" id="YZk-Ez-Nar"/>
+                            <constraint firstAttribute="bottom" secondItem="XTR-aj-tZx" secondAttribute="bottom" id="ZAc-NB-dsG"/>
                             <constraint firstItem="nBo-xz-BO6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jUs-pR-PdX"/>
                             <constraint firstItem="nBo-xz-BO6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kac-KT-jvQ"/>
                             <constraint firstItem="nBo-xz-BO6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s92-OR-tEk"/>
+                            <constraint firstItem="cTY-WC-bTN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vZk-yb-u4d"/>
                             <constraint firstAttribute="trailing" secondItem="XTR-aj-tZx" secondAttribute="trailing" id="xac-qR-lNx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="cTY-WC-bTN" id="ph5-Z6-P55"/>
+                        <outlet property="mapViewBottomConstraints" destination="AMn-eM-3MM" id="BNg-vA-Zhh"/>
+                        <outlet property="pullUpView" destination="XTR-aj-tZx" id="EVs-m1-KT9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -14,6 +14,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
   
   @IBOutlet weak var mapView: MKMapView!
   
+  @IBOutlet weak var pullUpView: UIView!
+  @IBOutlet weak var mapViewBottomConstraints: NSLayoutConstraint!
   var locationManager = CLLocationManager()
   let authorizationStatus = CLLocationManager.authorizationStatus()
   let regionRadius: Double = 1000
@@ -34,6 +36,12 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     doubleTap.delegate = self
     mapView.addGestureRecognizer(doubleTap)
   }
+  func animateViewUp() {
+    mapViewBottomConstraints.constant = 300
+    UIView.animate(withDuration: 0.3) {
+      self.view.layoutIfNeeded()
+    }
+  }
   
   @IBAction func centerMapBtnWasPressed(_ sender: Any) {
     if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
@@ -48,6 +56,7 @@ extension MapVC: MKMapViewDelegate {
     if annotation is MKUserLocation {
       return nil
     }
+    
     var pinAnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
     pinAnotation.pinTintColor = #colorLiteral(red: 0.9647058824, green: 0.6509803922, blue: 0.137254902, alpha: 1)
     pinAnotation.animatesDrop = true
@@ -64,6 +73,7 @@ extension MapVC: MKMapViewDelegate {
   @objc func dropPin(sender: UITapGestureRecognizer) {
     
     removePin()
+    animateViewUp()
        // координаты места на карте
     let touchPoint = sender.location(in: mapView)
     let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
