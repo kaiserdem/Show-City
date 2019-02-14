@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Alamofire
+import AlamofireImage
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate {
   
@@ -22,9 +24,13 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
   
   var spinner: UIActivityIndicatorView?
   var progressLbl: UILabel?
+  
   var collecrionView: UICollectionView?
   var flowLayauot = UICollectionViewFlowLayout()
+  
   var screenSize = UIScreen.main.bounds
+  
+  var imageUrlArray = [String]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -148,11 +154,30 @@ extension MapVC: MKMapViewDelegate {
     
     let coordinateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
     mapView.setRegion(coordinateRegion, animated: true)
+    
+    retrieveUrls(forAnnotation: annotation) { (true) in
+      print(self.imageUrlArray)
+    }
   }
   
   func removePin() {
     for annotation in mapView.annotations {
       mapView.removeAnnotation(annotation)
+    }
+  }
+        // разобрать полученую сслку
+  func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping(_ status: Bool) -> ()) {
+    imageUrlArray = []
+    
+    Alamofire.request(flickerUrl(forApiKey: apiKey, withAnnotation: annotation, andNumberOfPhotos: 40)).responseJSON { (response) in
+      guard let jason = response.result.value as? Dictionary<String, AnyObject> else { return }
+      let photosDict = jason["photos"] as! Dictionary<String, AnyObject>
+      let photosDictArray = photosDict["photo"] as! [Dictionary<String, AnyObject>]
+      for photo in photosDictArray {
+        let postUrl = "https://farm\(photo["farm"]!).staticflickr.com/\(photo["server"]!)/\(photo["id"]!)_\(photo["secret"]!)_h_d.jpg"
+        self.imageUrlArray.append(postUrl)
+      }
+      handler(true)
     }
   }
 }
