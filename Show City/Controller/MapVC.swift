@@ -141,6 +141,11 @@ extension MapVC: MKMapViewDelegate {
     removeProgressLbl()
     cancelAllSession()
     
+    imageUrlArray = []
+    imageArray = []
+    
+    collecrionView?.reloadData()
+    
     animateViewUp()
     addSwipe()
     addSpinner()
@@ -164,6 +169,7 @@ extension MapVC: MKMapViewDelegate {
           if finished {
             self.removeSpinner()
             self.removeProgressLbl()
+            self.collecrionView?.reloadData()
           }
         })
       }
@@ -177,8 +183,6 @@ extension MapVC: MKMapViewDelegate {
   }
         // разобрать полученую сслку
   func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping(_ status: Bool) -> ()) {
-    imageUrlArray = []
-    
     Alamofire.request(flickerUrl(forApiKey: apiKey, withAnnotation: annotation, andNumberOfPhotos: 40)).responseJSON { (response) in
       guard let jason = response.result.value as? Dictionary<String, AnyObject> else { return }
       let photosDict = jason["photos"] as! Dictionary<String, AnyObject>
@@ -192,7 +196,6 @@ extension MapVC: MKMapViewDelegate {
   }
   // извлеч фото
   func retriveImages(handler: @escaping(_ status: Bool) -> ()) {
-    imageArray = []
     for url in imageUrlArray {
       Alamofire.request(url).responseImage { (response) in
         guard let image = response.result.value else { return }
@@ -234,15 +237,21 @@ extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return imageArray.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collecrionView?.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
-    
-    return cell!
+    guard let cell = collecrionView?.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell else { return UICollectionViewCell () }
+    let imageFromIndex = imageArray[indexPath.row]
+    let imageView = UIImageView(image: imageFromIndex)
+    cell.addSubview(imageView)
+    return cell
   }
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return }
+    popVC.initData(forImage: imageArray[indexPath.row])
+    present(popVC, animated: true, completion: nil)
+    }
   
   
 }
