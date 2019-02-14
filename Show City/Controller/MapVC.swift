@@ -31,6 +31,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
   var screenSize = UIScreen.main.bounds
   
   var imageUrlArray = [String]()
+  var imageArray = [UIImage]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -69,6 +70,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
   }
   
   @objc func animateViewDown() {
+    cancelAllSession()
     pullUpViewHightConstraints.constant = 0
     UIView.animate(withDuration: 0.3) {
       self.loadViewIfNeeded()
@@ -92,7 +94,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
   func addProgressLbl() {
     progressLbl = UILabel()
     progressLbl?.frame = CGRect(x: (screenSize.width / 2) - 120, y: 175, width: 240, height: 40)
-    progressLbl?.font = UIFont(name: "Avenir Next", size: 18)
+    progressLbl?.font = UIFont(name: "Avenir Next", size: 14)
     progressLbl?.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     progressLbl?.textAlignment = .center
 
@@ -137,6 +139,7 @@ extension MapVC: MKMapViewDelegate {
     removePin()
     removeSpinner()
     removeProgressLbl()
+    cancelAllSession()
     
     animateViewUp()
     addSwipe()
@@ -155,8 +158,15 @@ extension MapVC: MKMapViewDelegate {
     let coordinateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
     mapView.setRegion(coordinateRegion, animated: true)
     
-    retrieveUrls(forAnnotation: annotation) { (true) in
-      print(self.imageUrlArray)
+    retrieveUrls(forAnnotation: annotation) { (finished) in
+      if finished {
+        self.retriveImages(handler: { (finished) in
+          if finished {
+            self.removeSpinner()
+            self.removeProgressLbl()
+          }
+        })
+      }
     }
   }
   
@@ -178,6 +188,26 @@ extension MapVC: MKMapViewDelegate {
         self.imageUrlArray.append(postUrl)
       }
       handler(true)
+    }
+  }
+  // извлеч фото
+  func retriveImages(handler: @escaping(_ status: Bool) -> ()) {
+    imageArray = []
+    for url in imageUrlArray {
+      Alamofire.request(url).responseImage { (response) in
+        guard let image = response.result.value else { return }
+        self.imageArray.append(image)
+        self.progressLbl?.text = "\(self.imageArray.count)/40 IMAGE DOWNLOADED"
+        
+        if self.imageArray.count == self.imageUrlArray.count {
+          handler(true)
+        }
+      }
+    }
+  }
+  func cancelAllSession() { // завершить
+    Alamofire.SessionManager.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
+      sessionDataTask.forEach({ $0.cancel() })
     }
   }
 }
