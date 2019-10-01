@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -63,8 +63,6 @@
 		AD2CF6642213288A0021771C /* Show City */ = {
 			isa = PBXGroup;
 			children = (
-				AD2CF67A221328F50021771C /* Utilities */,
-				AD2CF679221328D80021771C /* Extensions */,
 				AD2CF678221328C90021771C /* View */,
 				AD2CF677221328B90021771C /* Controller */,
 				AD2CF6652213288A0021771C /* AppDelegate.swift */,
@@ -90,20 +88,6 @@
 				AD2CF67B221355700021771C /* DroppablePin.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		AD2CF679221328D80021771C /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		AD2CF67A221328F50021771C /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		D998D1B584FD9136DAEFFD76 /* Frameworks */ = {
@@ -220,18 +204,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Show City/Pods-Show City-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Show City/Pods-Show City-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Show City/Pods-Show City-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

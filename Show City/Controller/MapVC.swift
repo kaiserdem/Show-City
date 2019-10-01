@@ -39,9 +39,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
       centerMapOnUserLocation()
     }
-
   }
-  
 }
 extension MapVC: MKMapViewDelegate {
   
